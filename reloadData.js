@@ -9,6 +9,7 @@ window.onload = function () {
         let pageHeight = document.documentElement.clientHeight;
         let topHeight = document.documentElement.scrollTop;
         if ((topHeight + pageHeight).toFixed() === scrollHeight.toFixed()) {
+
             addInfoFromJSON(++a);
         }
     });
@@ -72,11 +73,13 @@ function displayPreloader(flag) {
 
 /* Добавление данных в таблицу из указанного файла "jsonObject" */
 function readJSONData(jsonArr) {
-    for (let i = 0; i < jsonArr.length; i++) {
-        let table = document.getElementById("table");
-        let table_row = document.createElement("div");
-        table_row.classList.add("table__row");
-        createTableRow(table_row, jsonArr[i]);
-        table.appendChild(table_row);
-    }
+    setTimeout(function () {
+        for (let i = 0; i < jsonArr.length; i++) {
+            let table = document.getElementById("table");
+            let table_row = document.createElement("div");
+            table_row.classList.add("table__row");
+            createTableRow(table_row, jsonArr[i]);
+            table.appendChild(table_row);
+        }
+    }, 500);
 }
