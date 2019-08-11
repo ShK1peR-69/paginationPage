@@ -8,23 +8,21 @@ window.onload = async function () {
 };
 
 /* Отправка запроса, получение ответа и отображение данных в таблицу */
-function addInfoFromJSON() {
+async function addInfoFromJSON() {
     requestIsCompleted = false;
-    new Promise(async () => {
-        let response = await fetch("data/" + (FILENAME + ++fileNumber) + ".json");
-        if (response.status !== 404) {
-            response.json().then(data => readJSONData(data));
-            window.addEventListener('scroll', scrollListener); // Добавление"слушателя"
-            setTimeout(function () {
-                requestIsCompleted = true;
-            }, 500);
-        } else {
-            addInfoAboutNoneData();
-            displayPreloader(false);
-            window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
-            return false;
-        }
-    })
+    await fetch("data/" + (FILENAME + ++fileNumber) + ".json")
+        .then((response) => {
+            if (response.status !== 404) {
+                addDataToTable(response);
+                if (fileNumber === 5) {
+                    window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
+                }
+            } else {
+                addInfoAboutNoneData();
+                displayPreloader(false);
+                window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
+            }
+        });
 }
 
 /* Добавление данных об объекте в строку таблицы */
@@ -54,18 +52,14 @@ function displayPreloader(flag) {
     }
 }
 
-/* Добавление данных в таблицу из указанного файла "jsonObject" */
+/* Добавление строки в таблицу из указанного файла "jsonObject" */
 function readJSONData(jsonArr) {
     displayPreloader(true);
     setTimeout(function () {
         for (let i = 0; i < jsonArr.length; i++) {
             let table = document.getElementById("table");
-
             let tableRow = document.createElement("div");
-            if (i === 0) {
-                tableRow.style.color = 'red';
-                tableRow.style.fontSize = '20px';
-            }
+
             tableRow.classList.add("table__row");
             createTableRow(tableRow, jsonArr[i]);
             table.appendChild(tableRow);
@@ -79,24 +73,31 @@ function scrollListener() {
 
     let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
-    if (documentBottom.toFixed() <= (pageHeight + 45)) {
-        console.log("Page: " + pageHeight);
-        console.log("Bottom: " + documentBottom.toFixed());
+    if (pageHeight.toFixed() === documentBottom.toFixed()) {
         if (requestIsCompleted) {
             addInfoFromJSON();
         }
     }
 }
 
+/* Если при первом запросе не будет подгружаемых данных, отображаем сообщение
+* с текстом "Нет данных для отображения" */
 function addInfoAboutNoneData() {
     let table = document.getElementById("table");
 
-    /* Если при первом запросе не будет подгружаемых данных, отображаем сообщение
-    * с текстом "Нет данных для отображения" */
     if (table.children.length < 2) {
         let infoBlock = document.createElement("div");
         infoBlock.classList.add("none_data_info");
         infoBlock.innerText = "Нет данных для отображения";
         document.getElementsByTagName("body")[0].appendChild(infoBlock);
     }
+}
+
+/* Добавление данных в таблицу */
+function addDataToTable(response) {
+    response.json().then(data => readJSONData(data));
+    window.addEventListener('scroll', scrollListener); // Добавление"слушателя"
+    setTimeout(function () {
+        requestIsCompleted = true;
+    }, 500);
 }
