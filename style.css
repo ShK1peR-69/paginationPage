@@ -32,11 +32,11 @@
 }
 
 .preloader {
-    display: none;
+    position: fixed;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    top: calc(50% - 32px);
+    left: calc(50% - 32px);
 }
 
 .none_data_info {

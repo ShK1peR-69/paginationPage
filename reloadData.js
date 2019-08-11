@@ -1,5 +1,9 @@
 const FILENAME = "cars-";
+
+const FILES_COUNT = 5;
+
 let fileNumber = 0;
+
 let requestIsCompleted = true;
 
 window.onload = async function () {
@@ -14,7 +18,7 @@ async function addInfoFromJSON() {
         .then((response) => {
             if (response.status !== 404) {
                 addDataToTable(response);
-                if (fileNumber === 5) {
+                if (fileNumber >= FILES_COUNT) {
                     window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
                 }
             } else {
@@ -22,11 +26,16 @@ async function addInfoFromJSON() {
                 displayPreloader(false);
                 window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
             }
+        })
+        .then(() => {
+            // setTimeout(function () {
+            requestIsCompleted = true;
+            // }, 500);
         });
 }
 
 /* Добавление данных об объекте в строку таблицы */
-function createTableRow(table_row, car) {
+function createTableRow(tableRow, car) {
     let tableItemClass = "table__cell";
 
     for (let key in car) {
@@ -36,9 +45,9 @@ function createTableRow(table_row, car) {
         if (content == null) {
             content = '-'; // "не указано"
         }
-        let row_item_content = document.createTextNode(content);
-        rowItem.appendChild(row_item_content);
-        table_row.appendChild(rowItem);
+        let rowItemContent = document.createTextNode(content);
+        rowItem.appendChild(rowItemContent);
+        tableRow.appendChild(rowItem);
     }
 }
 
@@ -55,17 +64,16 @@ function displayPreloader(flag) {
 /* Добавление строки в таблицу из указанного файла "jsonObject" */
 function readJSONData(jsonArr) {
     displayPreloader(true);
-    setTimeout(function () {
-        for (let i = 0; i < jsonArr.length; i++) {
-            let table = document.getElementById("table");
-            let tableRow = document.createElement("div");
+    console.log("1234");
+    for (let i = 0; i < jsonArr.length; i++) {
+        let table = document.getElementById("table");
+        let tableRow = document.createElement("div");
 
-            tableRow.classList.add("table__row");
-            createTableRow(tableRow, jsonArr[i]);
-            table.appendChild(tableRow);
-        }
-        displayPreloader(false);
-    }, 500);
+        tableRow.classList.add("table__row");
+        createTableRow(tableRow, jsonArr[i]);
+        table.appendChild(tableRow);
+    }
+    displayPreloader(false);
 }
 
 function scrollListener() {
@@ -73,7 +81,8 @@ function scrollListener() {
 
     let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
-    if (pageHeight.toFixed() === documentBottom.toFixed()) {
+    if (pageHeight.toFixed() >= documentBottom.toFixed()) {
+        displayPreloader(true);
         if (requestIsCompleted) {
             addInfoFromJSON();
         }
@@ -97,7 +106,4 @@ function addInfoAboutNoneData() {
 function addDataToTable(response) {
     response.json().then(data => readJSONData(data));
     window.addEventListener('scroll', scrollListener); // Добавление"слушателя"
-    setTimeout(function () {
-        requestIsCompleted = true;
-    }, 500);
 }
