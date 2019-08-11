@@ -8,7 +8,7 @@ window.onload = function () {
         let scrollHeight = document.documentElement.scrollHeight;
         let pageHeight = document.documentElement.clientHeight;
         let topHeight = document.documentElement.scrollTop;
-        if ((topHeight + pageHeight).toFixed() > (scrollHeight - 10).toFixed()) {
+        if ((topHeight + pageHeight) > (scrollHeight - 3)) {
             addInfoFromJSON(++a);
         }
     });
@@ -24,7 +24,6 @@ function addInfoFromJSON(file_num) {
             /* Удаляем обработчик после того, как он получает конечный статус */
             request.onreadystatechange = null;
             if (request.status !== 404) {
-                console.log(request.status)
                 displayPreloader(true);
                 readJSONData(JSON.parse(request.responseText));
             } else {
@@ -73,13 +72,17 @@ function displayPreloader(flag) {
 
 /* Добавление данных в таблицу из указанного файла "jsonObject" */
 function readJSONData(jsonArr) {
-    setTimeout(function () {
-        for (let i = 0; i < jsonArr.length; i++) {
-            let table = document.getElementById("table");
-            let table_row = document.createElement("div");
-            table_row.classList.add("table__row");
-            createTableRow(table_row, jsonArr[i]);
-            table.appendChild(table_row);
+    for (let i = 0; i < jsonArr.length; i++) {
+        let table = document.getElementById("table");
+        let table_row = document.createElement("div");
+        if (i === 0) {
+            table_row.style.color = 'red';
         }
+        table_row.classList.add("table__row");
+        createTableRow(table_row, jsonArr[i]);
+        table.appendChild(table_row);
+    }
+    setTimeout(function () {
+        displayPreloader(false);
     }, 500);
 }
