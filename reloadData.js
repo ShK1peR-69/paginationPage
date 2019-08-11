@@ -74,13 +74,11 @@ function readJSONData(jsonArr) {
 }
 
 function scrollListener() {
-    let scrollHeight = document.documentElement.scrollHeight;
-
     let pageHeight = document.documentElement.clientHeight;
 
-    let topHeight = document.documentElement.scrollTop;
+    let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
-    if ((topHeight + pageHeight).toFixed() === scrollHeight.toFixed()) {
+    if (documentBottom <= pageHeight) {
         if (requestIsCompleted) {
             addInfoFromJSON();
         }
