@@ -22,6 +22,7 @@ function addInfoFromJSON() {
             addInfoAboutNoneData();
             displayPreloader(false);
             window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
+            return false;
         }
     })
 }
@@ -79,8 +80,8 @@ function scrollListener() {
     let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
     console.log("Page: " + pageHeight);
-    console.log("Bottom: " + documentBottom);
-    if (documentBottom <= (pageHeight + 1)) {
+    console.log("Bottom: " + documentBottom.toFixed());
+    if (documentBottom.toFixed() <= (pageHeight - 5)) {
         if (requestIsCompleted) {
             addInfoFromJSON();
         }
