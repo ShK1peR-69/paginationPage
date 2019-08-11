@@ -63,8 +63,6 @@ function scrollListener() {
     let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
     if (pageHeight.toFixed() >= documentBottom.toFixed() - 5) {
-        console.log(pageHeight);
-        console.log(documentBottom);
         displayPreloader(true);
         if (requestIsCompleted) {
             addInfoFromJSON();
