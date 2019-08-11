@@ -4,11 +4,11 @@ window.onload = function () {
     addInfoFromJSON(a);
 
     /* Добавление "слушателя" при скролле в конец страницы для подгрузки новых данных */
-    window.addEventListener('scroll DOMMouseScroll mousewheel wheel', function () {
+    window.addEventListener('scroll', function () {
         let scrollHeight = document.documentElement.scrollHeight;
         let pageHeight = document.documentElement.clientHeight;
         let topHeight = document.documentElement.scrollTop;
-        if ((topHeight + pageHeight).toFixed() === scrollHeight.toFixed()) {
+        if ((topHeight + pageHeight).toFixed() > (scrollHeight - 10).toFixed()) {
             addInfoFromJSON(++a);
         }
     });
@@ -24,6 +24,7 @@ function addInfoFromJSON(file_num) {
             /* Удаляем обработчик после того, как он получает конечный статус */
             request.onreadystatechange = null;
             if (request.status !== 404) {
+                console.log(request.status)
                 displayPreloader(true);
                 readJSONData(JSON.parse(request.responseText));
             } else {
