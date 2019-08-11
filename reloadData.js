@@ -81,7 +81,7 @@ function scrollListener() {
 
     console.log("Page: " + pageHeight);
     console.log("Bottom: " + documentBottom.toFixed());
-    if (documentBottom.toFixed() <= (pageHeight - 5)) {
+    if (documentBottom.toFixed() <= (pageHeight + 5)) {
         if (requestIsCompleted) {
             addInfoFromJSON();
         }
