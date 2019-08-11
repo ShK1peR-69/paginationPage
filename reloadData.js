@@ -1,9 +1,6 @@
 const FILENAME = "cars-";
-
 const FILES_COUNT = 5;
-
 let fileNumber = 0;
-
 let requestIsCompleted = true;
 
 window.onload = async function () {
@@ -28,14 +25,12 @@ async function addInfoFromJSON() {
             }
         })
         .then(() => {
-            // setTimeout(function () {
             requestIsCompleted = true;
-            // }, 500);
         });
 }
 
 /* Добавление данных об объекте в строку таблицы */
-function createTableRow(tableRow, car) {
+function addDataToTableRow(tableRow, car) {
     let tableItemClass = "table__cell";
 
     for (let key in car) {
@@ -62,14 +57,14 @@ function displayPreloader(flag) {
 }
 
 /* Добавление строки в таблицу из указанного файла "jsonObject" */
-function readJSONData(jsonArr) {
+function createTableRow(jsonArr) {
     displayPreloader(true);
     for (let i = 0; i < jsonArr.length; i++) {
         let table = document.getElementById("table");
         let tableRow = document.createElement("div");
 
         tableRow.classList.add("table__row");
-        createTableRow(tableRow, jsonArr[i]);
+        addDataToTableRow(tableRow, jsonArr[i]);
         table.appendChild(tableRow);
     }
     displayPreloader(false);
@@ -77,7 +72,6 @@ function readJSONData(jsonArr) {
 
 function scrollListener() {
     let pageHeight = document.documentElement.clientHeight;
-
     let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
     if (pageHeight.toFixed() >= (documentBottom - 10).toFixed()) {
@@ -103,6 +97,6 @@ function addInfoAboutNoneData() {
 
 /* Добавление данных в таблицу */
 function addDataToTable(response) {
-    response.json().then(data => readJSONData(data));
+    response.json().then(data => createTableRow(data));
     window.addEventListener('scroll', scrollListener); // Добавление"слушателя"
 }
