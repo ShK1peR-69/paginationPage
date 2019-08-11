@@ -4,12 +4,11 @@ window.onload = function () {
     addInfoFromJSON(a);
 
     /* Добавление "слушателя" при скролле в конец страницы для подгрузки новых данных */
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll DOMMouseScroll', function () {
         let scrollHeight = document.documentElement.scrollHeight;
         let pageHeight = document.documentElement.clientHeight;
         let topHeight = document.documentElement.scrollTop;
         if ((topHeight + pageHeight).toFixed() === scrollHeight.toFixed()) {
-
             addInfoFromJSON(++a);
         }
     });
