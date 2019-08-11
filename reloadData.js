@@ -1,7 +1,8 @@
 const FILENAME = "cars-";
-const FILES_COUNT = 5;
+const TABLE_ITEM_CLASS = "table__cell";
+const FILES_COUNT = 5; // Количество файлов в директории (узнается от серверной части)
 let fileNumber = 0;
-let requestIsCompleted = true;
+let requestIsCompleted = true; //Флаг для проверки завершения запроса
 
 window.onload = function () {
     addInfoFromJSON();
@@ -30,11 +31,9 @@ async function addInfoFromJSON() {
 
 /* Добавление данных об объекте в строку таблицы */
 function addDataToTableRow(tableRow, car) {
-    let tableItemClass = "table__cell";
-
     for (let key in car) {
         let rowItem = document.createElement("div");
-        rowItem.classList.add(tableItemClass);
+        rowItem.classList.add(TABLE_ITEM_CLASS);
         let content = car[key];
         if (content == null) {
             content = '-'; // "не указано"
@@ -42,16 +41,6 @@ function addDataToTableRow(tableRow, car) {
         let rowItemContent = document.createTextNode(content);
         rowItem.appendChild(rowItemContent);
         tableRow.appendChild(rowItem);
-    }
-}
-
-/* Отображение прелоадера при подгрузке данных */
-function displayPreloader(flag) {
-    let preloader = document.getElementsByClassName("preloader")[0];
-    if (flag === true) {
-        preloader.style.display = 'flex';
-    } else {
-        preloader.style.display = 'none';
     }
 }
 
@@ -98,4 +87,14 @@ function addInfoAboutNoneData() {
 function addDataToTable(response) {
     response.json().then(data => createTableRow(data));
     window.addEventListener('scroll', scrollListener); // Добавление"слушателя"
+}
+
+/* Отображение прелоадера при подгрузке данных */
+function displayPreloader(flag) {
+    let preloader = document.getElementsByClassName("preloader")[0];
+    if (flag === true) {
+        preloader.style.display = 'flex';
+    } else {
+        preloader.style.display = 'none';
+    }
 }
