@@ -20,7 +20,7 @@ async function addInfoFromJSON() {
             } else {
                 addInfoAboutNoneData();
                 displayPreloader(false);
-                window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
+                window.removeEventListener('scroll', scrollListener);
             }
         })
         .then(() => {
@@ -73,7 +73,7 @@ function scrollListener() {
     let pageHeight = document.documentElement.clientHeight;
     let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
-    if (pageHeight.toFixed() >= (documentBottom - 10).toFixed()) {
+    if (pageHeight.toFixed() >= (documentBottom - 5).toFixed()) {
         displayPreloader(true);
         if (requestIsCompleted) {
             addInfoFromJSON();
