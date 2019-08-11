@@ -7,24 +7,23 @@ window.onload = async function () {
     addInfoFromJSON();
 };
 
-
+/* Отправка запроса, получение ответа и отображение данных в таблицу */
 function addInfoFromJSON() {
     requestIsCompleted = false;
-    setTimeout(function () {
-        new Promise(async () => {
-            let response = await fetch("data/" + (FILENAME + ++fileNumber) + ".json");
-            if (response.status !== 404) {
-                response.json().then(data => readJSONData(data));
-                window.addEventListener('scroll', scrollListener); // Добавление"слушателя"
+    new Promise(async () => {
+        let response = await fetch("data/" + (FILENAME + ++fileNumber) + ".json");
+        if (response.status !== 404) {
+            response.json().then(data => readJSONData(data));
+            window.addEventListener('scroll', scrollListener); // Добавление"слушателя"
+            setTimeout(function () {
                 requestIsCompleted = true;
-            } else {
-                addInfoAboutNoneData();
-                displayPreloader(false);
-                window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
-            }
-        })
-            .finally(() => requestIsCompleted = true);
-    }, 300);
+            }, 500);
+        } else {
+            addInfoAboutNoneData();
+            displayPreloader(false);
+            window.removeEventListener('scroll', scrollListener); // Удаление "слушателя"
+        }
+    })
 }
 
 /* Добавление данных об объекте в строку таблицы */
@@ -82,7 +81,9 @@ function scrollListener() {
     let topHeight = document.documentElement.scrollTop;
 
     if ((topHeight + pageHeight).toFixed() === scrollHeight.toFixed()) {
-        addInfoFromJSON();
+        if (requestIsCompleted) {
+            addInfoFromJSON();
+        }
     }
 }
 
