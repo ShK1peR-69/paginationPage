@@ -4,7 +4,7 @@ window.onload = function () {
     addInfoFromJSON(a);
 
     /* Добавление "слушателя" при скролле в конец страницы для подгрузки новых данных */
-    window.addEventListener('scroll DOMMouseScroll', function () {
+    window.addEventListener('scroll DOMMouseScroll mousewheel wheel', function () {
         let scrollHeight = document.documentElement.scrollHeight;
         let pageHeight = document.documentElement.clientHeight;
         let topHeight = document.documentElement.scrollTop;
