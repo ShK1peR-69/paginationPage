@@ -3,8 +3,7 @@ const FILES_COUNT = 5;
 let fileNumber = 0;
 let requestIsCompleted = true;
 
-window.onload = async function () {
-    displayPreloader(true);
+window.onload = function () {
     addInfoFromJSON();
 };
 

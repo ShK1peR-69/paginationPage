@@ -33,6 +33,7 @@
 
 .preloader {
     position: fixed;
+    display: flex;
     justify-content: center;
     align-items: center;
     top: calc(50% - 32px);
