@@ -64,7 +64,6 @@ function displayPreloader(flag) {
 /* Добавление строки в таблицу из указанного файла "jsonObject" */
 function readJSONData(jsonArr) {
     displayPreloader(true);
-    console.log("1234");
     for (let i = 0; i < jsonArr.length; i++) {
         let table = document.getElementById("table");
         let tableRow = document.createElement("div");
@@ -81,7 +80,7 @@ function scrollListener() {
 
     let documentBottom = document.documentElement.getBoundingClientRect().bottom;
 
-    if (pageHeight.toFixed() >= documentBottom.toFixed()) {
+    if (pageHeight.toFixed() >= (documentBottom - 10).toFixed()) {
         displayPreloader(true);
         if (requestIsCompleted) {
             addInfoFromJSON();
