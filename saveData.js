@@ -10,3 +10,12 @@ function createSaveElem(){
         encodeURIComponent(saveFileContent) +
         '" download="cars-data.json">' + btn_elem + '</a>')
 }
+
+function getJSONData(){
+
+    return "some_js";
+}
+
+function addDataToJSONFile(jsonObj){
+    return jsonObj;
+}
