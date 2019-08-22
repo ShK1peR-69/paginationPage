@@ -1,7 +1,6 @@
 const FILENAME = "cars-";
 const TABLE_ITEM_CLASS = "table__cell";
 const FILES_COUNT = 5; // Количество файлов в директории (узнается от серверной части)
-const SAVE_FILENAME = "savingData";
 var saveFileContent = "";
 let fileNumber = 0;
 let requestIsCompleted = true; //Флаг для проверки завершения запроса
@@ -34,8 +33,7 @@ async function addInfoFromJSON() {
 /* Добавление данных об объекте в строку таблицы */
 function addDataToTableRow(tableRow, car) {
     for (let key in car) {
-        console.log(stringify(car));
-        //saveFileContent = stringify(car);
+        saveFileContent = stringify(car);
         let rowItem = document.createElement("div");
         rowItem.classList.add(TABLE_ITEM_CLASS);
         let content = car[key];
