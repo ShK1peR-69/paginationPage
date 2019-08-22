@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>CARS</title>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
+
 <body>
 
-<div class="table" id="table">
-    <div class="table__row table__row--head">
-        <div class="table__cell table__cell--head">Название</div>
-        <div class="table__cell table__cell--head">Расход топлива мл/г</div>
-        <div class="table__cell table__cell--head">Цилиндры</div>
-        <div class="table__cell table__cell--head">Рабочий объём</div>
-        <div class="table__cell table__cell--head">Л.C</div>
-        <div class="table__cell table__cell--head">Вес</div>
-        <div class="table__cell table__cell--head">Ускорение м/c2</div>
-        <div class="table__cell table__cell--head">Год выпуска</div>
-        <div class="table__cell table__cell--head">Производство</div>
+    <div class="table" id="table">
+        <div class="table__row table__row--head">
+            <div class="table__cell table__cell--head">Название</div>
+            <div class="table__cell table__cell--head">Расход топлива мл/г</div>
+            <div class="table__cell table__cell--head">Цилиндры</div>
+            <div class="table__cell table__cell--head">Рабочий объём</div>
+            <div class="table__cell table__cell--head">Л.C</div>
+            <div class="table__cell table__cell--head">Вес</div>
+            <div class="table__cell table__cell--head">Ускорение м/c2</div>
+            <div class="table__cell table__cell--head">Год выпуска</div>
+            <div class="table__cell table__cell--head">Производство</div>
+        </div>
     </div>
-</div>
-<button class="save_data_btn" onclick="return saveDataToJSONFile()">Сохранить</button>
 
-<div class="preloader">
-    <img alt="preloader" src="preloader.gif">
-</div>
+    <div id="saveButton"></div>
 
-<!-- Пример строки -->
-
-<template>
-    <div class="table__row">
-        <div class="table__cell">chevrolet caprice classic</div>
-        <div class="table__cell">13</div>
-        <div class="table__cell">8</div>
-        <div class="table__cell">400</div>
-        <div class="table__cell">150</div>
-        <div class="table__cell">4464</div>
-        <div class="table__cell">12</div>
-        <div class="table__cell">1973-01-01</div>
-        <div class="table__cell">USA</div>
+        <div class="preloader">
+        <img alt="preloader" src="preloader.gif">
     </div>
-</template>
 
-<!-- ============= -->
+    <!-- Пример строки -->
 
-<script defer src="reloadData.js"></script>
-<script defer src="saveData.js"></script>
+    <template>
+        <div class="table__row">
+            <div class="table__cell">chevrolet caprice classic</div>
+            <div class="table__cell">13</div>
+            <div class="table__cell">8</div>
+            <div class="table__cell">400</div>
+            <div class="table__cell">150</div>
+            <div class="table__cell">4464</div>
+            <div class="table__cell">12</div>
+            <div class="table__cell">1973-01-01</div>
+            <div class="table__cell">USA</div>
+        </div>
+    </template>
+
+    <!-- ============= -->
+
+    <script defer src="reloadData.js"></script>
+    <script async src="saveData.js"></script>
+
 </body>
+
 </html>
