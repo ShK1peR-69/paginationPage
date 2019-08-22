@@ -46,6 +46,7 @@ function addDataToTableRow(tableRow, car) {
 
 /* Добавление строки в таблицу из указанного файла "jsonObject" */
 function createTableRow(jsonArr) {
+    console.log("Arr:"+jsonArr);
     displayPreloader(true);
     for (let i = 0; i < jsonArr.length; i++) {
         let table = document.getElementById("table");
