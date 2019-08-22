@@ -31,8 +31,8 @@ async function addInfoFromJSON() {
 
 /* Добавление данных об объекте в строку таблицы */
 function addDataToTableRow(tableRow, car) {
-    console.log(car);
     for (let key in car) {
+        console.log(car);
         let rowItem = document.createElement("div");
         rowItem.classList.add(TABLE_ITEM_CLASS);
         let content = car[key];
