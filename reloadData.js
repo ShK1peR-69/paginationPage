@@ -12,7 +12,8 @@ window.onload = function () {
 /* Отправка запроса, получение ответа и отображение данных в таблицу */
 async function addInfoFromJSON() {
     requestIsCompleted = false;
-    await fetch("data/" + (FILENAME + ++fileNumber) + ".json")
+    fileNumber = fileNumber + 1;
+    await fetch("data/" + (FILENAME + fileNumber) + ".json")
         .then((response) => {
             if (response.status !== 404) {
                 addDataToTable(response);
@@ -44,6 +45,27 @@ function addDataToTableRow(tableRow, car) {
         rowItem.appendChild(rowItemContent);
         tableRow.appendChild(rowItem);
     }
+    createSaveElem(car);
+}
+
+var dataContent = '';
+for (let i = 0; i < 25; i++) {
+    dataContent = dataContent + '{"Name":"ford ltd","Miles_per_Gallon":13,"Cylinders":8,' +
+        '"Displacement":351,"Horsepower":158,"Weight_in_lbs":4363,' +
+        '"Acceleration":13,"Year":"1973-01-01","Origin":"USA"} \n ';
+}
+
+function createSaveElem(el) {
+
+    let btn_elem = "<button class='save_data_btn'>Сохранить</button>";
+    for (let i = 0; i < 78; i++) {
+        dataContent = dataContent + JSON.stringify(el) + "\n";
+    }
+    console.log("Length: " + dataContent.length);
+    $("#saveButton").append(
+        '<a href="data:text/plain;charset=utf-8,' +
+        encodeURIComponent(dataContent) +
+        '" download="cars-data.json">' + btn_elem + '</a>')
 }
 
 /* Добавление строки в таблицу из указанного файла "jsonObject" */
